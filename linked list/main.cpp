@@ -84,15 +84,39 @@ void deletAtFront(node *&head, node *&tail)
     {
         return;
     }
-    else if(head->next == NULL)
+    else if (head->next == NULL)
     {
         delete head;
         head = tail = NULL;
     }
-    else{
-        node* temp = head;
+    else
+    {
+        node *temp = head;
         head = head->next;
         delete temp;
+    }
+}
+void deleteAtLast(node *&head, node *&tail)
+{
+    if (head == NULL)
+    {
+        return;
+    }
+    else if (head->next == NULL)
+    {
+        delete head;
+        head = tail = NULL;
+    }
+    else
+    {
+        node *temp = head;
+        while (temp->next != tail)
+        {
+            temp = temp->next;
+        }
+        delete tail; 
+        temp->next = NULL;
+        tail = temp;
     }
 }
 
@@ -112,11 +136,23 @@ int main()
     insertAtMiddle(5, 0, head, tail);
     printLL(head);
     cout << "\nLength: " << LengthLL(head) << endl;
-    while(head != NULL)
+    while (head != NULL)
     {
         deletAtFront(head, tail);
         printLL(head);
-        cout<<endl;
+        cout << endl;
+    }
+    insertAtFront(head, tail, 1);
+    insertAtFront(head, tail, 2);
+    insertAtFront(head, tail, 3);
+    insertAtFront(head, tail, 4);
+    printLL(head);
+    cout<<endl;
+    while (head != NULL)
+    {
+        deleteAtLast(head, tail);
+        printLL(head);
+        cout << endl;
     }
     return 0;
 }
