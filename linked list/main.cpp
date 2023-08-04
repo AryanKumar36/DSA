@@ -6,7 +6,7 @@ class node
 {
 public:
     int data;
-    node* next;
+    node *next;
 
     node(int d)
     {
@@ -15,25 +15,36 @@ public:
     }
 };
 
-void printLL(node* head)
+void printLL(node *head)
 {
     while (head != NULL)
     {
-        cout << head->data << " ";
+        cout << head->data << "-->";
         head = head->next;
     }
+    cout<<"NULL";
+}
+int LengthLL(node* head)
+{
+    int ans = 0;
+    while(head != NULL)
+    {
+        ans++;
+        head = head->next;
+    }
+    return ans;
 }
 
-void insertAtFront(node* &head, node* &tail, int d)
+void insertAtFront(node *&head, node *&tail, int d)
 {
     if (head == NULL)
     {
-        node* n = new node(d);
+        node *n = new node(d);
         head = tail = n;
     }
     else
     {
-        node* n = new node(d);
+        node *n = new node(d);
         n->next = head;
         head = n;
     }
@@ -54,6 +65,18 @@ void insertAtlast(node *&head, node *&tail, int d)
         tail = n;
     }
 }
+insertAtMiddle(int pos, int d, node* &head, node* &tail)
+{
+    node* temp = head;
+    for(int i{}; i<pos-1; ++i)
+    {
+        temp = temp->next;
+    }
+    
+    node* n = new node(d);
+    n->next = temp->next;
+    temp->next = n;
+}
 
 int main()
 {
@@ -67,7 +90,9 @@ int main()
     insertAtlast(head, tail, 3);
     insertAtlast(head, tail, 4);
     insertAtlast(head, tail, 5);
-
+    insertAtMiddle(3, 0, head, tail);
+    insertAtMiddle(5, 0, head, tail);
     printLL(head);
+    cout<<"\nLength: "<<LengthLL(head)<<endl;
     return 0;
 }
