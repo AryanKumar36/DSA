@@ -119,7 +119,7 @@ void deleteAtLast(node *&head, node *&tail)
         tail = temp;
     }
 }
-void ReverseLL(node* &head, node* &tail)
+void reverseLL(node* &head, node* &tail)
 {
     node* c= head;
     node* p= NULL;
@@ -134,6 +134,22 @@ void ReverseLL(node* &head, node* &tail)
     swap(head, tail);
 }
 
+void reverseLLRecursionHelper(node* c, node* p)
+{
+    if(c==NULL)
+    {
+        return;
+    }
+    node* n = c->next;
+    c->next = p;
+    reverseLLRecursionHelper(n ,c);
+}
+ 
+void reverseLLRecurion(node* &head, node* &tail)
+{
+    reverseLLRecursionHelper(head, NULL);
+    swap(head, tail);
+}
 int main()
 {
     node *head = NULL, *tail = NULL;
@@ -169,6 +185,9 @@ int main()
     //     cout << endl;
     // }
     // return 0;
-    ReverseLL(head, tail);
+    reverseLL(head, tail);
+    printLL(head);
+    cout<<endl;
+    reverseLLRecurion(head, tail);
     printLL(head);
 }
