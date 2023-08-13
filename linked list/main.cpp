@@ -174,6 +174,19 @@ node* meregeSortedLL(node* h1, node* h2)
     }
     return nH;
 }
+
+node* midLL(node* head)
+{
+    node* f =head;
+    node* s =head;
+
+    while(f != NULL && f->next != NULL)
+    {
+        f = f->next->next;
+        s = s->next;
+    }
+    return s;
+}
 int main()
 {
     node *head = NULL, *tail = NULL;
@@ -235,5 +248,8 @@ int main()
 
     nH =meregeSortedLL(h1 ,h2);
     printLL(nH);
+
+    node* midH = midLL(nH);
+    printLL(midH);
 
 }
