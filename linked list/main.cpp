@@ -22,7 +22,7 @@ void printLL(node *head)
         cout << head->data << "-->";
         head = head->next;
     }
-    cout << "NULL"<<endl;
+    cout << "NULL" << endl;
 }
 int LengthLL(node *head)
 {
@@ -114,73 +114,74 @@ void deleteAtLast(node *&head, node *&tail)
         {
             temp = temp->next;
         }
-        delete tail; 
+        delete tail;
         temp->next = NULL;
         tail = temp;
     }
 }
-void reverseLL(node* &head, node* &tail)
+void reverseLL(node *&head, node *&tail)
 {
-    node* c= head;
-    node* p= NULL;
+    node *c = head;
+    node *p = NULL;
 
-    while(c != NULL)
+    while (c != NULL)
     {
-        node* n =c->next;
+        node *n = c->next;
         c->next = p;
-        p =c;
+        p = c;
         c = n;
     }
     swap(head, tail);
 }
 
-void reverseLLRecursionHelper(node* c, node* p)
+void reverseLLRecursionHelper(node *c, node *p)
 {
-    if(c==NULL)
+    if (c == NULL)
     {
         return;
     }
-    node* n = c->next;
+    node *n = c->next;
     c->next = p;
-    reverseLLRecursionHelper(n ,c);
+    reverseLLRecursionHelper(n, c);
 }
- 
-void reverseLLRecurion(node* &head, node* &tail)
+
+void reverseLLRecurion(node *&head, node *&tail)
 {
     reverseLLRecursionHelper(head, NULL);
     swap(head, tail);
 }
 
-node* meregeSortedLL(node* h1, node* h2)
+node *meregeSortedLL(node *h1, node *h2)
 {
-    if(h1==NULL)
+    if (h1 == NULL)
     {
         return h2;
     }
-    if(h2== NULL)
+    if (h2 == NULL)
     {
         return h1;
     }
 
-    node* nH = NULL;
-    if(h1->data > h2->data)
+    node *nH = NULL;
+    if (h1->data > h2->data)
     {
         nH = h2;
         nH->next = meregeSortedLL(h1, h2->next);
     }
-    else{
-        nH =h1;
+    else
+    {
+        nH = h1;
         nH->next = meregeSortedLL(h1->next, h2);
     }
     return nH;
 }
 
-node* midLL(node* head)
+node *midLL(node *head)
 {
-    node* f =head;
-    node* s =head;
+    node *f = head;
+    node *s = head;
 
-    while(f != NULL && f->next != NULL)
+    while (f != NULL && f->next != NULL)
     {
         f = f->next->next;
         s = s->next;
@@ -214,7 +215,7 @@ int main()
     insertAtFront(head, tail, 3);
     insertAtFront(head, tail, 4);
     printLL(head);
-    cout<<endl;
+    cout << endl;
     // while (head != NULL)
     // {
     //     deleteAtLast(head, tail);
@@ -224,14 +225,14 @@ int main()
     // return 0;
     reverseLL(head, tail);
     printLL(head);
-    cout<<endl;
+    cout << endl;
     reverseLLRecurion(head, tail);
     printLL(head);
-    cout<<endl;
-    cout<<endl;
-    node* h1 =NULL, *t1 =NULL;
-    node* h2 =NULL, *t2 =NULL;
-    node* nH =NULL, *nT = NULL;
+    cout << endl;
+    cout << endl;
+    node *h1 = NULL, *t1 = NULL;
+    node *h2 = NULL, *t2 = NULL;
+    node *nH = NULL, *nT = NULL;
     insertAtlast(h1, t1, 1);
     insertAtlast(h1, t1, 3);
     insertAtlast(h1, t1, 5);
@@ -246,10 +247,9 @@ int main()
     printLL(h1);
     printLL(h2);
 
-    nH =meregeSortedLL(h1 ,h2);
+    nH = meregeSortedLL(h1, h2);
     printLL(nH);
 
-    node* midH = midLL(nH);
+    node *midH = midLL(nH);
     printLL(midH);
-
 }
