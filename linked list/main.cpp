@@ -22,7 +22,7 @@ void printLL(node *head)
         cout << head->data << "-->";
         head = head->next;
     }
-    cout << "NULL";
+    cout << "NULL"<<endl;
 }
 int LengthLL(node *head)
 {
@@ -150,6 +150,30 @@ void reverseLLRecurion(node* &head, node* &tail)
     reverseLLRecursionHelper(head, NULL);
     swap(head, tail);
 }
+
+node* meregeSortedLL(node* h1, node* h2)
+{
+    if(h1==NULL)
+    {
+        return h2;
+    }
+    if(h2== NULL)
+    {
+        return h1;
+    }
+
+    node* nH = NULL;
+    if(h1->data > h2->data)
+    {
+        nH = h2;
+        nH->next = meregeSortedLL(h1, h2->next);
+    }
+    else{
+        nH =h1;
+        nH->next = meregeSortedLL(h1->next, h2);
+    }
+    return nH;
+}
 int main()
 {
     node *head = NULL, *tail = NULL;
@@ -190,4 +214,26 @@ int main()
     cout<<endl;
     reverseLLRecurion(head, tail);
     printLL(head);
+    cout<<endl;
+    cout<<endl;
+    node* h1 =NULL, *t1 =NULL;
+    node* h2 =NULL, *t2 =NULL;
+    node* nH =NULL, *nT = NULL;
+    insertAtlast(h1, t1, 1);
+    insertAtlast(h1, t1, 3);
+    insertAtlast(h1, t1, 5);
+    insertAtlast(h1, t1, 7);
+    insertAtlast(h1, t1, 9);
+    insertAtlast(h2, t2, 2);
+    insertAtlast(h2, t2, 4);
+    insertAtlast(h2, t2, 6);
+    insertAtlast(h2, t2, 8);
+    insertAtlast(h2, t2, 10);
+
+    printLL(h1);
+    printLL(h2);
+
+    nH =meregeSortedLL(h1 ,h2);
+    printLL(nH);
+
 }
