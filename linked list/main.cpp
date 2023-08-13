@@ -119,6 +119,20 @@ void deleteAtLast(node *&head, node *&tail)
         tail = temp;
     }
 }
+void ReverseLL(node* &head, node* &tail)
+{
+    node* c= head;
+    node* p= NULL;
+
+    while(c != NULL)
+    {
+        node* n =c->next;
+        c->next = p;
+        p =c;
+        c = n;
+    }
+    swap(head, tail);
+}
 
 int main()
 {
@@ -148,11 +162,13 @@ int main()
     insertAtFront(head, tail, 4);
     printLL(head);
     cout<<endl;
-    while (head != NULL)
-    {
-        deleteAtLast(head, tail);
-        printLL(head);
-        cout << endl;
-    }
-    return 0;
+    // while (head != NULL)
+    // {
+    //     deleteAtLast(head, tail);
+    //     printLL(head);
+    //     cout << endl;
+    // }
+    // return 0;
+    ReverseLL(head, tail);
+    printLL(head);
 }
