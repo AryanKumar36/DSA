@@ -1,6 +1,7 @@
-#include <iostream>
-
+#include <bits/stdc++.h>
+#include <map>
 using namespace std;
+
 
 class node
 {
@@ -175,6 +176,91 @@ node *meregeSortedLL(node *h1, node *h2)
     }
     return nH;
 }
+node *removeDuplicate_sorted(node* &head)
+{
+    if(head == NULL)
+    {
+        return NULL;
+    }
+
+    node* curr = head;
+    while(curr !=NULL)
+    {
+        if(curr->next != NULL && curr->data == curr->next->data)
+        {
+            node* next_next = curr->next->next;
+            node* todelete = curr->next;
+            delete(todelete);
+            curr->next = next_next;
+
+        }
+        else{
+            curr = curr->next;
+        }
+        
+    }
+    return head;
+}
+node *removeDuplicate_unsorted_1(node* &head)
+{
+    if(head == NULL)
+    {
+        return NULL;
+    }
+    node* curr = head;
+
+    while(curr != NULL)
+    {
+        node* temp = curr->next;
+        node* prev = curr;
+        while(temp != NULL)
+        {
+            if(curr->data == temp->data)
+            {
+                prev->next = temp->next;
+                node* duplicate = temp;
+                temp = temp->next;
+                delete(duplicate);
+            }
+            else{
+                temp = temp->next;
+                prev = prev->next;
+            }
+        }
+        curr = curr->next;
+    }
+    return head;
+    //Time Complexity - O(N^2)
+    //Space Complexity - O(1)
+}
+node* removeDuplicate_unsorted_2(node* &head)
+{
+    if(head == NULL)
+    {
+        return NULL;
+    }
+    map <int, bool> visited;
+
+    node* prev = head;
+    node* curr = head ->next;
+    visited[prev->data] = true;
+
+    while(curr!=NULL)
+    {
+        if(visited[curr->data] == true)
+        {
+            prev->next = curr->next;
+            delete(curr);
+        }
+        else{
+            visited[curr->data] = true;
+            prev =prev->next;  
+        }
+        curr = prev->next;
+    }
+    return head;
+}
+
 
 node *midLL(node *head)
 {
@@ -252,4 +338,38 @@ int main()
 
     node *midH = midLL(nH);
     printLL(midH);
+
+    node *dupli = NULL;
+    node *dt =NULL;
+    
+    insertAtFront(dupli, dt, 1);
+    insertAtFront(dupli, dt, 2);
+    insertAtFront(dupli, dt, 2);
+    insertAtFront(dupli, dt, 3);
+    insertAtFront(dupli, dt, 3);
+    insertAtFront(dupli, dt, 3);
+    insertAtFront(dupli, dt, 4);
+    printLL(dupli);
+    removeDuplicate_sorted(dupli);
+    printLL(dupli);
+    node *dupli_1 = NULL;
+    node *dt_1 =NULL;
+    insertAtlast(dupli_1, dt_1, 1);
+    insertAtlast(dupli_1, dt_1, 2);
+    insertAtlast(dupli_1, dt_1, 1);
+    insertAtlast(dupli_1, dt_1, 3);
+    insertAtlast(dupli_1, dt_1, 2);
+    printLL(dupli_1);
+    removeDuplicate_unsorted_1(dupli_1);
+    printLL(dupli_1);
+    node *dupli_2 = NULL;
+    node *dt_2 =NULL;
+    insertAtlast(dupli_2, dt_2, 1);
+    insertAtlast(dupli_2, dt_2, 2);
+    insertAtlast(dupli_2, dt_2, 1);
+    insertAtlast(dupli_2, dt_2, 3);
+    insertAtlast(dupli_2, dt_2, 2);
+    printLL(dupli_2);
+    removeDuplicate_unsorted_1(dupli_2);
+    printLL(dupli_2);
 }
